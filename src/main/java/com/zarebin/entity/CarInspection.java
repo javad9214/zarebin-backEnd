@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,34 +21,45 @@ public class CarInspection {
     private Long id;
 
     @Column(nullable = false)
-    private String userId;
+    private String fullName;
 
     @Column(nullable = false)
-    private String carId;
+    private String phoneNumber;
 
     @Column(nullable = false)
-    private LocalDateTime inspectionDate;
+    private String carName;
 
     @Column(nullable = false)
-    private Integer mileage;
-
-    @Column(length = 1000)
-    private String notes;
+    private String carModel;
 
     @Column(nullable = false)
+    private String chassisNumber;
+
+    @Column(nullable = false)
+    private String plateNumber;
+
+    @Column(columnDefinition = "TEXT")
+    private String expertDescription;
+
+    // Body panels
+    private String frontBumper;
+    private String hood;
+    private String frontRightFender;
+    private String frontRightDoor;
+    private String rearRightDoor;
+    private String rearRightFender;
+    private String trunkLid;
+    private String rearLeftFender;
+    private String rearLeftDoor;
+    private String frontLeftDoor;
+    private String frontLeftFender;
+    private String roof;
+    private String rearBumper;
+
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 }

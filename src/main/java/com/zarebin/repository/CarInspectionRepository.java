@@ -8,10 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CarInspectionRepository extends JpaRepository<CarInspection, Long> {
-
-    List<CarInspection> findByUserId(String userId);
-
-    List<CarInspection> findByCarId(String carId);
-
-    List<CarInspection> findByUserIdAndCarId(String userId, String carId);
+    List<CarInspection> findByChassisNumber(String chassisNumber);
+    List<CarInspection> findByPlateNumber(String plateNumber);
 }

@@ -2,13 +2,13 @@ package com.zarebin.controller;
 
 import com.zarebin.dto.CarInspectionDto;
 import com.zarebin.service.CarInspectionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +23,7 @@ public class CarInspectionController {
     public ResponseEntity<CarInspectionDto> create(@Valid @RequestBody CarInspectionDto dto) {
         log.info("POST /api/inspections - Creating new inspection");
         CarInspectionDto created = service.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -36,22 +36,22 @@ public class CarInspectionController {
     @GetMapping
     public ResponseEntity<List<CarInspectionDto>> getAll() {
         log.info("GET /api/inspections - Fetching all inspections");
-        List<CarInspectionDto> dtos = service.getAll();
-        return ResponseEntity.ok(dtos);
+        List<CarInspectionDto> inspections = service.getAll();
+        return ResponseEntity.ok(inspections);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<CarInspectionDto>> getByUserId(@PathVariable String userId) {
-        log.info("GET /api/inspections/user/{} - Fetching inspections by userId", userId);
-        List<CarInspectionDto> dtos = service.getByUserId(userId);
-        return ResponseEntity.ok(dtos);
+    @GetMapping("/chassis/{chassisNumber}")
+    public ResponseEntity<List<CarInspectionDto>> getByChassisNumber(@PathVariable String chassisNumber) {
+        log.info("GET /api/inspections/chassis/{} - Fetching by chassis number", chassisNumber);
+        List<CarInspectionDto> inspections = service.getByChassisNumber(chassisNumber);
+        return ResponseEntity.ok(inspections);
     }
 
-    @GetMapping("/car/{carId}")
-    public ResponseEntity<List<CarInspectionDto>> getByCarId(@PathVariable String carId) {
-        log.info("GET /api/inspections/car/{} - Fetching inspections by carId", carId);
-        List<CarInspectionDto> dtos = service.getByCarId(carId);
-        return ResponseEntity.ok(dtos);
+    @GetMapping("/plate/{plateNumber}")
+    public ResponseEntity<List<CarInspectionDto>> getByPlateNumber(@PathVariable String plateNumber) {
+        log.info("GET /api/inspections/plate/{} - Fetching by plate number", plateNumber);
+        List<CarInspectionDto> inspections = service.getByPlateNumber(plateNumber);
+        return ResponseEntity.ok(inspections);
     }
 
     @PutMapping("/{id}")

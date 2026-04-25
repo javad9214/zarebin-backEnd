@@ -2,8 +2,6 @@ package com.zarebin.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,21 +15,40 @@ public class CarInspectionDto {
 
     private Long id;
 
-    @NotBlank(message = "User ID is required")
-    private String userId;
+    @NotBlank(message = "Full name is required")
+    private String fullName;
 
-    @NotBlank(message = "Car ID is required")
-    private String carId;
+    @NotBlank(message = "Phone number is required")
+    private String phoneNumber;
 
-    @NotNull(message = "Inspection date is required")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime inspectionDate;
+    @NotBlank(message = "Car name is required")
+    private String carName;
 
-    @NotNull(message = "Mileage is required")
-    @Positive(message = "Mileage must be positive")
-    private Integer mileage;
+    @NotBlank(message = "Car model is required")
+    private String carModel;
 
-    private String notes;
+    @NotBlank(message = "Chassis number is required")
+    private String chassisNumber;
+
+    @NotBlank(message = "Plate number is required")
+    private String plateNumber;
+
+    private String expertDescription;
+
+    // Body panels
+    private String frontBumper;
+    private String hood;
+    private String frontRightFender;
+    private String frontRightDoor;
+    private String rearRightDoor;
+    private String rearRightFender;
+    private String trunkLid;
+    private String rearLeftFender;
+    private String rearLeftDoor;
+    private String frontLeftDoor;
+    private String frontLeftFender;
+    private String roof;
+    private String rearBumper;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
