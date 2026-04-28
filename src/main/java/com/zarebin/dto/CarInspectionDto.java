@@ -2,6 +2,7 @@ package com.zarebin.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,10 @@ import java.time.LocalDateTime;
 public class CarInspectionDto {
 
     private Long id;
+
+    @NotNull(message = "Inspection date is required")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime inspectionDate;
 
     @NotBlank(message = "Full name is required")
     private String fullName;
@@ -36,19 +41,20 @@ public class CarInspectionDto {
     private String expertDescription;
 
     // Body panels
-    private String frontBumper;
-    private String hood;
-    private String frontRightFender;
-    private String frontRightDoor;
-    private String rearRightDoor;
-    private String rearRightFender;
-    private String trunkLid;
-    private String rearLeftFender;
-    private String rearLeftDoor;
-    private String frontLeftDoor;
-    private String frontLeftFender;
-    private String roof;
-    private String rearBumper;
+    private Boolean roof;
+    private Boolean chassis;
+    private Boolean frontLeftFender;
+    private Boolean frontRightFender;
+    private Boolean rearLeftFender;
+    private Boolean rearRightFender;
+    private Boolean hood;
+    private Boolean trunk;
+    private Boolean frontLeftDoor;
+    private Boolean frontRightDoor;
+    private Boolean rearLeftDoor;
+    private Boolean rearRightDoor;
+    private Boolean frontBumper;
+    private Boolean rearBumper;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,139 +20,128 @@ public class CarInspectionService {
 
     @Transactional
     public CarInspectionDto create(CarInspectionDto dto) {
-        log.info("Creating new car inspection for: {}", dto.getFullName());
-        CarInspection entity = toEntity(dto);
-        CarInspection saved = repository.save(entity);
-        log.info("Car inspection created with ID: {}", saved.getId());
+        CarInspection saved = repository.save(toEntity(dto));
         return toDto(saved);
     }
 
     public CarInspectionDto getById(Long id) {
-        log.info("Fetching car inspection with ID: {}", id);
-        CarInspection entity = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Car inspection not found with ID: " + id));
-        return toDto(entity);
+        CarInspection e = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found: " + id));
+        return toDto(e);
     }
 
     public List<CarInspectionDto> getAll() {
-        log.info("Fetching all car inspections");
-        return repository.findAll().stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        return repository.findAll().stream().map(this::toDto).toList();
     }
 
     public List<CarInspectionDto> getByChassisNumber(String chassisNumber) {
-        log.info("Fetching car inspections by chassis number: {}", chassisNumber);
-        return repository.findByChassisNumber(chassisNumber).stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        return repository.findByChassisNumber(chassisNumber).stream().map(this::toDto).toList();
     }
 
     public List<CarInspectionDto> getByPlateNumber(String plateNumber) {
-        log.info("Fetching car inspections by plate number: {}", plateNumber);
-        return repository.findByPlateNumber(plateNumber).stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        return repository.findByPlateNumber(plateNumber).stream().map(this::toDto).toList();
     }
 
     @Transactional
     public CarInspectionDto update(Long id, CarInspectionDto dto) {
-        log.info("Updating car inspection with ID: {}", id);
-        CarInspection existing = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Car inspection not found with ID: " + id));
+        CarInspection e = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found: " + id));
 
-        existing.setFullName(dto.getFullName());
-        existing.setPhoneNumber(dto.getPhoneNumber());
-        existing.setCarName(dto.getCarName());
-        existing.setCarModel(dto.getCarModel());
-        existing.setChassisNumber(dto.getChassisNumber());
-        existing.setPlateNumber(dto.getPlateNumber());
-        existing.setExpertDescription(dto.getExpertDescription());
+        e.setFullName(dto.getFullName());
+        e.setPhoneNumber(dto.getPhoneNumber());
+        e.setCarName(dto.getCarName());
+        e.setCarModel(dto.getCarModel());
+        e.setChassisNumber(dto.getChassisNumber());
+        e.setPlateNumber(dto.getPlateNumber());
+        e.setInspectionDate(dto.getInspectionDate());
+        e.setExpertDescription(dto.getExpertDescription());
 
-        existing.setFrontBumper(dto.getFrontBumper());
-        existing.setHood(dto.getHood());
-        existing.setFrontRightFender(dto.getFrontRightFender());
-        existing.setFrontRightDoor(dto.getFrontRightDoor());
-        existing.setRearRightDoor(dto.getRearRightDoor());
-        existing.setRearRightFender(dto.getRearRightFender());
-        existing.setTrunkLid(dto.getTrunkLid());
-        existing.setRearLeftFender(dto.getRearLeftFender());
-        existing.setRearLeftDoor(dto.getRearLeftDoor());
-        existing.setFrontLeftDoor(dto.getFrontLeftDoor());
-        existing.setFrontLeftFender(dto.getFrontLeftFender());
-        existing.setRoof(dto.getRoof());
-        existing.setRearBumper(dto.getRearBumper());
+        e.setFrontBumper(dto.getFrontBumper());
+        e.setRearBumper(dto.getRearBumper());
+        e.setRoof(dto.getRoof());
+        e.setHood(dto.getHood());
+        e.setChassis(dto.getChassis());
+        e.setFrontLeftFender(dto.getFrontLeftFender());
+        e.setFrontRightFender(dto.getFrontRightFender());
+        e.setRearLeftFender(dto.getRearLeftFender());
+        e.setRearRightFender(dto.getRearRightFender());
+        e.setFrontLeftDoor(dto.getFrontLeftDoor());
+        e.setFrontRightDoor(dto.getFrontRightDoor());
+        e.setRearLeftDoor(dto.getRearLeftDoor());
+        e.setRearRightDoor(dto.getRearRightDoor());
+        e.setTrunk(dto.getTrunk());
 
-        CarInspection updated = repository.save(existing);
-        log.info("Car inspection updated successfully");
-        return toDto(updated);
+        return toDto(repository.save(e));
     }
 
     @Transactional
     public void delete(Long id) {
-        log.info("Deleting car inspection with ID: {}", id);
-        if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Car inspection not found with ID: " + id);
-        }
+        if (!repository.existsById(id)) throw new ResourceNotFoundException("Not found: " + id);
         repository.deleteById(id);
-        log.info("Car inspection deleted successfully");
     }
 
-    private CarInspection toEntity(CarInspectionDto dto) {
-        CarInspection entity = new CarInspection();
-        entity.setId(dto.getId());
-        entity.setFullName(dto.getFullName());
-        entity.setPhoneNumber(dto.getPhoneNumber());
-        entity.setCarName(dto.getCarName());
-        entity.setCarModel(dto.getCarModel());
-        entity.setChassisNumber(dto.getChassisNumber());
-        entity.setPlateNumber(dto.getPlateNumber());
-        entity.setExpertDescription(dto.getExpertDescription());
+    private CarInspection toEntity(CarInspectionDto d) {
+        CarInspection e = new CarInspection();
 
-        entity.setFrontBumper(dto.getFrontBumper());
-        entity.setHood(dto.getHood());
-        entity.setFrontRightFender(dto.getFrontRightFender());
-        entity.setFrontRightDoor(dto.getFrontRightDoor());
-        entity.setRearRightDoor(dto.getRearRightDoor());
-        entity.setRearRightFender(dto.getRearRightFender());
-        entity.setTrunkLid(dto.getTrunkLid());
-        entity.setRearLeftFender(dto.getRearLeftFender());
-        entity.setRearLeftDoor(dto.getRearLeftDoor());
-        entity.setFrontLeftDoor(dto.getFrontLeftDoor());
-        entity.setFrontLeftFender(dto.getFrontLeftFender());
-        entity.setRoof(dto.getRoof());
-        entity.setRearBumper(dto.getRearBumper());
+        e.setId(d.getId());
+        e.setFullName(d.getFullName());
+        e.setPhoneNumber(d.getPhoneNumber());
+        e.setCarName(d.getCarName());
+        e.setCarModel(d.getCarModel());
+        e.setChassisNumber(d.getChassisNumber());
+        e.setPlateNumber(d.getPlateNumber());
+        e.setInspectionDate(d.getInspectionDate());
+        e.setExpertDescription(d.getExpertDescription());
 
-        return entity;
+        e.setFrontBumper(d.getFrontBumper());
+        e.setRearBumper(d.getRearBumper());
+        e.setRoof(d.getRoof());
+        e.setHood(d.getHood());
+        e.setChassis(d.getChassis());
+        e.setFrontLeftFender(d.getFrontLeftFender());
+        e.setFrontRightFender(d.getFrontRightFender());
+        e.setRearLeftFender(d.getRearLeftFender());
+        e.setRearRightFender(d.getRearRightFender());
+        e.setFrontLeftDoor(d.getFrontLeftDoor());
+        e.setFrontRightDoor(d.getFrontRightDoor());
+        e.setRearLeftDoor(d.getRearLeftDoor());
+        e.setRearRightDoor(d.getRearRightDoor());
+        e.setTrunk(d.getTrunk());
+
+        return e;
     }
 
-    private CarInspectionDto toDto(CarInspection entity) {
-        CarInspectionDto dto = new CarInspectionDto();
-        dto.setId(entity.getId());
-        dto.setFullName(entity.getFullName());
-        dto.setPhoneNumber(entity.getPhoneNumber());
-        dto.setCarName(entity.getCarName());
-        dto.setCarModel(entity.getCarModel());
-        dto.setChassisNumber(entity.getChassisNumber());
-        dto.setPlateNumber(entity.getPlateNumber());
-        dto.setExpertDescription(entity.getExpertDescription());
+    private CarInspectionDto toDto(CarInspection e) {
+        CarInspectionDto d = new CarInspectionDto();
 
-        dto.setFrontBumper(entity.getFrontBumper());
-        dto.setHood(entity.getHood());
-        dto.setFrontRightFender(entity.getFrontRightFender());
-        dto.setFrontRightDoor(entity.getFrontRightDoor());
-        dto.setRearRightDoor(entity.getRearRightDoor());
-        dto.setRearRightFender(entity.getRearRightFender());
-        dto.setTrunkLid(entity.getTrunkLid());
-        dto.setRearLeftFender(entity.getRearLeftFender());
-        dto.setRearLeftDoor(entity.getRearLeftDoor());
-        dto.setFrontLeftDoor(entity.getFrontLeftDoor());
-        dto.setFrontLeftFender(entity.getFrontLeftFender());
-        dto.setRoof(entity.getRoof());
-        dto.setRearBumper(entity.getRearBumper());
+        d.setId(e.getId());
+        d.setFullName(e.getFullName());
+        d.setPhoneNumber(e.getPhoneNumber());
+        d.setCarName(e.getCarName());
+        d.setCarModel(e.getCarModel());
+        d.setChassisNumber(e.getChassisNumber());
+        d.setPlateNumber(e.getPlateNumber());
+        d.setInspectionDate(e.getInspectionDate());
+        d.setExpertDescription(e.getExpertDescription());
 
-        dto.setCreatedAt(entity.getCreatedAt());
-        dto.setUpdatedAt(entity.getUpdatedAt());
-        return dto;
+        d.setFrontBumper(e.getFrontBumper());
+        d.setRearBumper(e.getRearBumper());
+        d.setRoof(e.getRoof());
+        d.setHood(e.getHood());
+        d.setChassis(e.getChassis());
+        d.setFrontLeftFender(e.getFrontLeftFender());
+        d.setFrontRightFender(e.getFrontRightFender());
+        d.setRearLeftFender(e.getRearLeftFender());
+        d.setRearRightFender(e.getRearRightFender());
+        d.setFrontLeftDoor(e.getFrontLeftDoor());
+        d.setFrontRightDoor(e.getFrontRightDoor());
+        d.setRearLeftDoor(e.getRearLeftDoor());
+        d.setRearRightDoor(e.getRearRightDoor());
+        d.setTrunk(e.getTrunk());
+
+        d.setCreatedAt(e.getCreatedAt());
+        d.setUpdatedAt(e.getUpdatedAt());
+
+        return d;
     }
 }

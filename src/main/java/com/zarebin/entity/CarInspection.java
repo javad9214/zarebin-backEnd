@@ -38,23 +38,27 @@ public class CarInspection {
     @Column(nullable = false)
     private String plateNumber;
 
+    @Column(nullable = false)
+    private LocalDateTime inspectionDate;
+
     @Column(columnDefinition = "TEXT")
     private String expertDescription;
 
-    // Body panels
-    private String frontBumper;
-    private String hood;
-    private String frontRightFender;
-    private String frontRightDoor;
-    private String rearRightDoor;
-    private String rearRightFender;
-    private String trunkLid;
-    private String rearLeftFender;
-    private String rearLeftDoor;
-    private String frontLeftDoor;
-    private String frontLeftFender;
-    private String roof;
-    private String rearBumper;
+    // Body panels - Boolean fields
+    private Boolean frontBumper;
+    private Boolean hood;
+    private Boolean frontRightFender;
+    private Boolean frontRightDoor;
+    private Boolean rearRightDoor;
+    private Boolean rearRightFender;
+    private Boolean trunk;
+    private Boolean rearLeftFender;
+    private Boolean rearLeftDoor;
+    private Boolean frontLeftDoor;
+    private Boolean frontLeftFender;
+    private Boolean roof;
+    private Boolean rearBumper;
+    private Boolean chassis;
 
     @CreationTimestamp
     @Column(updatable = false)
