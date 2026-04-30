@@ -4,6 +4,7 @@ import com.zarebin.dto.CarInspectionDto;
 import com.zarebin.entity.CarInspection;
 import com.zarebin.exception.ResourceNotFoundException;
 import com.zarebin.repository.CarInspectionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,13 @@ public class CarInspectionService {
         if (!repository.existsById(id)) throw new ResourceNotFoundException("Not found: " + id);
         repository.deleteById(id);
     }
+
+
+    public CarInspection getEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Inspection not found with id: " + id));
+    }
+
 
     private CarInspection toEntity(CarInspectionDto d) {
         CarInspection e = new CarInspection();
