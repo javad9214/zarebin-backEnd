@@ -15,4 +15,20 @@ public class PdfRequest {
     private String engineNumber;
     private String chassisNumber;
     private String inspectionDate; // yyyy-MM-dd
+
+    // Body panels
+    private Boolean roof;
+    private Boolean chassis;
+    private Boolean frontLeftFender;
+    private Boolean frontRightFender;
+    private Boolean rearLeftFender;
+    private Boolean rearRightFender;
+    private Boolean hood;
+    private Boolean trunk;
+    private Boolean frontLeftDoor;
+    private Boolean frontRightDoor;
+    private Boolean rearLeftDoor;
+    private Boolean rearRightDoor;
+    private Boolean frontBumper;
+    private Boolean rearBumper;
 }

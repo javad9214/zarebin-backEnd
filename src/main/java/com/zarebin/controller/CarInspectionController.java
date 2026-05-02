@@ -6,6 +6,7 @@ import com.zarebin.entity.CarInspection;
 import com.zarebin.service.CarInspectionPdfService;
 import com.zarebin.service.CarInspectionPdfServiceLocally;
 import com.zarebin.service.CarInspectionService;
+import com.zarebin.utility.DateUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -106,8 +107,22 @@ public class CarInspectionController {
         req.setCarModel(inspection.getCarModel());
         req.setPlateNumber(inspection.getPlateNumber());
         req.setChassisNumber(inspection.getChassisNumber());
-        req.setInspectionDate(inspection.getInspectionDate().toLocalDate().toString());
-        // بقیه فیلدها اگر داری ست کن (vin, ownerName, engineNumber)
+        req.setInspectionDate(DateUtil.gregorianToShamsiLocalDate(inspection.getInspectionDate().toLocalDate()).toString());
+        log.info(DateUtil.gregorianToShamsiLocalDate(inspection.getInspectionDate().toLocalDate()).toString());
+        req.setRoof(inspection.getRoof());
+        req.setChassis(inspection.getChassis());
+        req.setFrontLeftFender(inspection.getFrontLeftFender());
+        req.setFrontRightFender(inspection.getFrontRightFender());
+        req.setRearLeftFender(inspection.getRearLeftFender());
+        req.setRearRightFender(inspection.getRearRightFender());
+        req.setHood(inspection.getHood());
+        req.setTrunk(inspection.getTrunk());
+        req.setFrontLeftDoor(inspection.getFrontLeftDoor());
+        req.setFrontRightDoor(inspection.getFrontRightDoor());
+        req.setRearLeftDoor(inspection.getRearLeftDoor());
+        req.setRearRightDoor(inspection.getRearRightDoor());
+        req.setFrontBumper(inspection.getFrontBumper());
+        req.setRearBumper(inspection.getRearBumper());
 
         String result = carInspectionPdfService.sendToPython(req);
         return ResponseEntity.ok(result);
