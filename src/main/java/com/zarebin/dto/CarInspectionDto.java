@@ -53,8 +53,7 @@ public class CarInspectionDto {
     private Boolean frontRightDoor;
     private Boolean rearLeftDoor;
     private Boolean rearRightDoor;
-    private Boolean frontBumper;
-    private Boolean rearBumper;
+
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;

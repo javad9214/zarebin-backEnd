@@ -2,19 +2,23 @@ package com.zarebin.dto;
 
 import lombok.Data;
 
+
 @Data
 public class PdfRequest {
     private Long inspectionId;
+    private String inspectionDate;
+
     private String fullName;
     private String phoneNumber;
+
     private String carName;
     private String carModel;
-    private String plateNumber;
-    private String vin;
-    private String ownerName;
-    private String engineNumber;
+
     private String chassisNumber;
-    private String inspectionDate; // yyyy-MM-dd
+
+    private String plateNumber;
+
+    private String expertDescription;
 
     // Body panels
     private Boolean roof;
@@ -29,6 +33,4 @@ public class PdfRequest {
     private Boolean frontRightDoor;
     private Boolean rearLeftDoor;
     private Boolean rearRightDoor;
-    private Boolean frontBumper;
-    private Boolean rearBumper;
 }

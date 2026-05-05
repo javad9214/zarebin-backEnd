@@ -75,25 +75,6 @@ public class CarInspectionController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/{id}/pdf")
-//    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
-//        log.info("GET /api/inspections/{}/pdf - Generating PDF", id);
-//        try {
-//            CarInspection inspection = service.getEntityById(id);
-//            byte[] pdfBytes = pdfServiceLocally.fillPdfForm(inspection);
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            headers.setContentDispositionFormData("attachment",
-//                    "inspection_" + inspection.getChassisNumber() + ".pdf");
-//            headers.setContentLength(pdfBytes.length);
-//
-//            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-//        } catch (IOException e) {
-//            log.error("Error generating PDF for inspection {}", id, e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
 
     @GetMapping("/{id}/pdf")
     public ResponseEntity<String> generatePdfViaPython(@PathVariable Long id) {
@@ -107,6 +88,7 @@ public class CarInspectionController {
         req.setCarModel(inspection.getCarModel());
         req.setPlateNumber(inspection.getPlateNumber());
         req.setChassisNumber(inspection.getChassisNumber());
+        req.setExpertDescription(inspection.getExpertDescription());
         req.setInspectionDate(DateUtil.gregorianToShamsiLocalDate(inspection.getInspectionDate().toLocalDate()).toString());
         log.info(DateUtil.gregorianToShamsiLocalDate(inspection.getInspectionDate().toLocalDate()).toString());
         req.setRoof(inspection.getRoof());
@@ -121,34 +103,10 @@ public class CarInspectionController {
         req.setFrontRightDoor(inspection.getFrontRightDoor());
         req.setRearLeftDoor(inspection.getRearLeftDoor());
         req.setRearRightDoor(inspection.getRearRightDoor());
-        req.setFrontBumper(inspection.getFrontBumper());
-        req.setRearBumper(inspection.getRearBumper());
 
         String result = carInspectionPdfService.sendToPython(req);
         return ResponseEntity.ok(result);
     }
 
-
-//    @GetMapping("/test-coordinates")
-//    public ResponseEntity<byte[]> getCoordinateTestPdf() {
-//        try {
-//            byte[] pdfBytes = pdfService.generateCoordinateTestPdf();
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            headers.setContentDisposition(
-//                    ContentDisposition.attachment()
-//                            .filename("coordinate-test.pdf", StandardCharsets.UTF_8)
-//                            .build()
-//            );
-//
-//            return ResponseEntity.ok()
-//                    .headers(headers)
-//                    .body(pdfBytes);
-//        } catch (IOException e) {
-//            log.error("خطا در تولید PDF تست", e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
 
 }

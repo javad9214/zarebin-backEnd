@@ -57,8 +57,6 @@ public class CarInspectionService {
         e.setInspectionDate(dto.getInspectionDate());
         e.setExpertDescription(dto.getExpertDescription());
 
-        e.setFrontBumper(dto.getFrontBumper());
-        e.setRearBumper(dto.getRearBumper());
         e.setRoof(dto.getRoof());
         e.setHood(dto.getHood());
         e.setChassis(dto.getChassis());
@@ -101,8 +99,6 @@ public class CarInspectionService {
         e.setInspectionDate(d.getInspectionDate());
         e.setExpertDescription(d.getExpertDescription());
 
-        e.setFrontBumper(d.getFrontBumper());
-        e.setRearBumper(d.getRearBumper());
         e.setRoof(d.getRoof());
         e.setHood(d.getHood());
         e.setChassis(d.getChassis());
@@ -132,8 +128,6 @@ public class CarInspectionService {
         d.setInspectionDate(e.getInspectionDate());
         d.setExpertDescription(e.getExpertDescription());
 
-        d.setFrontBumper(e.getFrontBumper());
-        d.setRearBumper(e.getRearBumper());
         d.setRoof(e.getRoof());
         d.setHood(e.getHood());
         d.setChassis(e.getChassis());
