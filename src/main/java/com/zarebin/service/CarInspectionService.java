@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -32,7 +34,7 @@ public class CarInspectionService {
     }
 
     public List<CarInspectionDto> getAll() {
-        return repository.findAll().stream().map(this::toDto).toList();
+        return repository.findAllByOrderByInspectionDateDesc().stream().map(this::toDto).toList();
     }
 
     public List<CarInspectionDto> getByChassisNumber(String chassisNumber) {
@@ -41,6 +43,22 @@ public class CarInspectionService {
 
     public List<CarInspectionDto> getByPlateNumber(String plateNumber) {
         return repository.findByPlateNumber(plateNumber).stream().map(this::toDto).toList();
+    }
+
+
+    public List<CarInspectionDto> getByPhoneNumber(String phoneNumber) {
+        return repository.findByPhoneNumber(phoneNumber).stream().map(this::toDto).toList();
+    }
+
+    public List<CarInspectionDto> getByFullName(String fullName) {
+        return repository.findByFullNameContainingIgnoreCase(fullName).stream().map(this::toDto).toList();
+    }
+
+    public List<CarInspectionDto> getByDate(String date) {
+        LocalDate searchDate = LocalDate.parse(date);
+        LocalDateTime startOfDay = searchDate.atStartOfDay();
+        LocalDateTime endOfDay = searchDate.atTime(23, 59, 59);
+        return repository.findByInspectionDateBetween(startOfDay, endOfDay).stream().map(this::toDto).toList();
     }
 
     @Transactional

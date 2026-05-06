@@ -1,5 +1,6 @@
 package com.zarebin.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zarebin.dto.CarInspectionDto;
 import com.zarebin.dto.PdfRequest;
 import com.zarebin.entity.CarInspection;
@@ -60,6 +61,29 @@ public class CarInspectionController {
         List<CarInspectionDto> inspections = service.getByPlateNumber(plateNumber);
         return ResponseEntity.ok(inspections);
     }
+
+    @GetMapping("/phone/{phoneNumber}")
+    public ResponseEntity<List<CarInspectionDto>> getByPhoneNumber(@PathVariable String phoneNumber) {
+        log.info("GET /api/inspections/phone/{} - Fetching by phone number", phoneNumber);
+        List<CarInspectionDto> inspections = service.getByPhoneNumber(phoneNumber);
+        return ResponseEntity.ok(inspections);
+    }
+
+    @GetMapping("/name/{fullName}")
+    public ResponseEntity<List<CarInspectionDto>> getByFullName(@PathVariable String fullName) {
+        log.info("GET /api/inspections/name/{} - Fetching by full name", fullName);
+        List<CarInspectionDto> inspections = service.getByFullName(fullName);
+        return ResponseEntity.ok(inspections);
+    }
+
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<CarInspectionDto>> getByDate(@PathVariable @JsonFormat(pattern = "yyyy-MM-dd") String date) {
+        log.info("GET /api/inspections/date/{} - Fetching by date", date);
+        List<CarInspectionDto> inspections = service.getByDate(date);
+        return ResponseEntity.ok(inspections);
+    }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CarInspectionDto> update(@PathVariable Long id, @Valid @RequestBody CarInspectionDto dto) {
