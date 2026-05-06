@@ -7,7 +7,7 @@ import lombok.Data;
 public class PdfRequest {
     private Long inspectionId;
     private String inspectionDate;
-
+    private String inspectionTime;
     private String fullName;
     private String phoneNumber;
 

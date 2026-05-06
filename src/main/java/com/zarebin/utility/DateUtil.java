@@ -3,7 +3,9 @@ package com.zarebin.utility;
 import com.github.mfathi91.time.PersianDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateUtil {
@@ -49,6 +51,18 @@ public class DateUtil {
         );
     }
 
+
+    public static String gregorianToShamsiString(LocalDate gregorianDate) {
+        if (gregorianDate == null) return null;
+
+        LocalDate shamsiDate = gregorianToShamsiLocalDate(gregorianDate);
+        return shamsiDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    }
+
+
+    public static String getTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
 
     public static LocalDate persianLocalDateToGregorian(Date persianDate) {
         if (persianDate == null) {
