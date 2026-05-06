@@ -10,7 +10,7 @@ public class PdfClientConfig {
     @Bean
     public WebClient pdfWebClient() {
         return WebClient.builder()
-                .baseUrl("http://127.0.0.1:8002")
+                .baseUrl("http://127.0.0.1:8082")
                 .build();
     }
 }
