@@ -3,6 +3,7 @@ package com.zarebin.controller;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zarebin.dto.CarInspectionDto;
 import com.zarebin.dto.PdfRequest;
+import com.zarebin.dto.PdfResponse;
 import com.zarebin.entity.CarInspection;
 import com.zarebin.service.CarInspectionPdfService;
 import com.zarebin.service.CarInspectionPdfServiceLocally;
@@ -101,7 +102,7 @@ public class CarInspectionController {
 
 
     @GetMapping("/{id}/pdf")
-    public ResponseEntity<String> generatePdfViaPython(@PathVariable Long id) {
+    public ResponseEntity<PdfResponse> generatePdfViaPython(@PathVariable Long id) {
         CarInspection inspection = service.getEntityById(id);
 
         PdfRequest req = new PdfRequest();
@@ -128,7 +129,7 @@ public class CarInspectionController {
         req.setRearLeftDoor(inspection.getRearLeftDoor());
         req.setRearRightDoor(inspection.getRearRightDoor());
 
-        String result = carInspectionPdfService.sendToPython(req);
+        PdfResponse result = carInspectionPdfService.sendToPython(req);
         return ResponseEntity.ok(result);
     }
 
