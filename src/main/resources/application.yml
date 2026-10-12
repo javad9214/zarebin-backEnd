@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/zarebin
-    username: postgres
-    password: your_password
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:zarebin}
+    username: ${DB_USERNAME:zarebin_user}
+    password: ${DB_PASSWORD:zarebin-password}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -25,6 +25,11 @@ spring:
     serialization:
       write-dates-as-timestamps: false
     time-zone: UTC
+
+app:
+  pdf-service:
+    # FastAPI PDF generator (see zarebin-python); must match its uvicorn port
+    base-url: ${PDF_SERVICE_URL:http://127.0.0.1:8082}
 
 logging:
   level:
