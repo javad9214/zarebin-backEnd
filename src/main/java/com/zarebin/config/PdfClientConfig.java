@@ -1,16 +1,18 @@
 package com.zarebin.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
+@EnableConfigurationProperties(PdfServiceProperties.class)
 public class PdfClientConfig {
 
     @Bean
-    public WebClient pdfWebClient() {
+    public WebClient pdfWebClient(PdfServiceProperties properties) {
         return WebClient.builder()
-                .baseUrl("http://127.0.0.1:8082")
+                .baseUrl(properties.baseUrl())
                 .build();
     }
 }
