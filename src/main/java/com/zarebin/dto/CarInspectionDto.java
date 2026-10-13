@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +16,12 @@ import java.time.LocalDateTime;
 public class CarInspectionDto {
 
     private Long id;
+
+    /**
+     * Unguessable share key for the web report link; assigned by the server,
+     * ignored on create/update input.
+     */
+    private UUID publicId;
 
     @NotNull(message = "Inspection date is required")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")

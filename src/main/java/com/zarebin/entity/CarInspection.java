@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "car_inspections")
@@ -19,6 +20,17 @@ public class CarInspection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * Unguessable share key backing the customer-facing web link
+     * (/report/{publicId}). Deliberately separate from the internal
+     * auto-increment id the expert app uses, so sequential ids are never
+     * exposed as capability URLs. Nullable so the ddl-auto=update migration
+     * on existing rows succeeds; rows created after this field are always
+     * assigned one (see {@link #onCreate()}) and old rows are backfilled at startup.
+     */
+    @Column(unique = true, updatable = false)
+    private UUID publicId;
 
     @Column(nullable = false)
     private String fullName;
@@ -70,4 +82,11 @@ public class CarInspection {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    void onCreate() {
+        if (publicId == null) {
+            publicId = UUID.randomUUID();
+        }
+    }
 }

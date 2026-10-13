@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,32 +32,33 @@ public class CarInspectionService {
         return toDto(e);
     }
 
+    /**
+     * Customer-facing lookup by the unguessable share key used in web report links.
+     */
+    public CarInspectionDto getByPublicId(UUID publicId) {
+        CarInspection e = repository.findByPublicId(publicId)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found: " + publicId));
+        return toDto(e);
+    }
+
     public List<CarInspectionDto> getAll() {
         return repository.findAllByOrderByInspectionDateDesc().stream().map(this::toDto).toList();
     }
 
-    public List<CarInspectionDto> getByChassisNumber(String chassisNumber) {
-        return repository.findByChassisNumber(chassisNumber).stream().map(this::toDto).toList();
-    }
-
-    public List<CarInspectionDto> getByPlateNumber(String plateNumber) {
-        return repository.findByPlateNumber(plateNumber).stream().map(this::toDto).toList();
-    }
-
-
-    public List<CarInspectionDto> getByPhoneNumber(String phoneNumber) {
-        return repository.findByPhoneNumber(phoneNumber).stream().map(this::toDto).toList();
-    }
-
-    public List<CarInspectionDto> getByFullName(String fullName) {
-        return repository.findByFullNameContainingIgnoreCase(fullName).stream().map(this::toDto).toList();
-    }
-
-    public List<CarInspectionDto> getByDate(String date) {
-        LocalDate searchDate = LocalDate.parse(date);
-        LocalDateTime startOfDay = searchDate.atStartOfDay();
-        LocalDateTime endOfDay = searchDate.atTime(23, 59, 59);
-        return repository.findByInspectionDateBetween(startOfDay, endOfDay).stream().map(this::toDto).toList();
+    /**
+     * Assign a publicId to inspections created before the field existed, so
+     * every record is shareable via a web link. Runs once at startup.
+     */
+    @Transactional
+    public void backfillPublicIds() {
+        List<CarInspection> missing = repository.findByPublicIdIsNull();
+        for (CarInspection e : missing) {
+            e.setPublicId(UUID.randomUUID());
+        }
+        repository.saveAll(missing);
+        if (!missing.isEmpty()) {
+            log.info("Backfilled publicId for {} inspection(s)", missing.size());
+        }
     }
 
     @Transactional
@@ -141,6 +141,7 @@ public class CarInspectionService {
         CarInspectionDto d = new CarInspectionDto();
 
         d.setId(e.getId());
+        d.setPublicId(e.getPublicId());
         d.setFullName(e.getFullName());
         d.setPhoneNumber(e.getPhoneNumber());
         d.setCarName(e.getCarName());

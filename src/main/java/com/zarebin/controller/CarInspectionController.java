@@ -1,6 +1,5 @@
 package com.zarebin.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zarebin.dto.CarInspectionDto;
 import com.zarebin.dto.PdfRequest;
 import com.zarebin.dto.PdfResponse;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/inspections")
@@ -42,49 +42,23 @@ public class CarInspectionController {
         return ResponseEntity.ok(dto);
     }
 
+    /**
+     * Customer-facing endpoint backing the web report link (/report/{publicId});
+     * the UUID share key is the only credential required.
+     */
+    @GetMapping("/public/{publicId}")
+    public ResponseEntity<CarInspectionDto> getByPublicId(@PathVariable UUID publicId) {
+        log.info("GET /api/inspections/public/{} - Fetching inspection by public id", publicId);
+        CarInspectionDto dto = service.getByPublicId(publicId);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping
     public ResponseEntity<List<CarInspectionDto>> getAll() {
         log.info("GET /api/inspections - Fetching all inspections");
         List<CarInspectionDto> inspections = service.getAll();
         return ResponseEntity.ok(inspections);
     }
-
-    @GetMapping("/chassis/{chassisNumber}")
-    public ResponseEntity<List<CarInspectionDto>> getByChassisNumber(@PathVariable String chassisNumber) {
-        log.info("GET /api/inspections/chassis/{} - Fetching by chassis number", chassisNumber);
-        List<CarInspectionDto> inspections = service.getByChassisNumber(chassisNumber);
-        return ResponseEntity.ok(inspections);
-    }
-
-    @GetMapping("/plate/{plateNumber}")
-    public ResponseEntity<List<CarInspectionDto>> getByPlateNumber(@PathVariable String plateNumber) {
-        log.info("GET /api/inspections/plate/{} - Fetching by plate number", plateNumber);
-        List<CarInspectionDto> inspections = service.getByPlateNumber(plateNumber);
-        return ResponseEntity.ok(inspections);
-    }
-
-    @GetMapping("/phone/{phoneNumber}")
-    public ResponseEntity<List<CarInspectionDto>> getByPhoneNumber(@PathVariable String phoneNumber) {
-        log.info("GET /api/inspections/phone/{} - Fetching by phone number", phoneNumber);
-        List<CarInspectionDto> inspections = service.getByPhoneNumber(phoneNumber);
-        return ResponseEntity.ok(inspections);
-    }
-
-    @GetMapping("/name/{fullName}")
-    public ResponseEntity<List<CarInspectionDto>> getByFullName(@PathVariable String fullName) {
-        log.info("GET /api/inspections/name/{} - Fetching by full name", fullName);
-        List<CarInspectionDto> inspections = service.getByFullName(fullName);
-        return ResponseEntity.ok(inspections);
-    }
-
-    @GetMapping("/date/{date}")
-    public ResponseEntity<List<CarInspectionDto>> getByDate(@PathVariable @JsonFormat(pattern = "yyyy-MM-dd") String date) {
-        log.info("GET /api/inspections/date/{} - Fetching by date", date);
-        List<CarInspectionDto> inspections = service.getByDate(date);
-        return ResponseEntity.ok(inspections);
-    }
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<CarInspectionDto> update(@PathVariable Long id, @Valid @RequestBody CarInspectionDto dto) {
