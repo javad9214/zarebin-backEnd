@@ -18,6 +18,10 @@ public class PdfRequest {
 
     private String plateNumber;
 
+    private String expertName;
+
+    private String expertPhoneNumber;
+
     private String expertDescription;
 
     // Body panels

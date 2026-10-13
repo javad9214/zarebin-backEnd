@@ -113,6 +113,8 @@ public class CarInspectionController {
         req.setCarModel(inspection.getCarModel());
         req.setPlateNumber(inspection.getPlateNumber());
         req.setChassisNumber(inspection.getChassisNumber());
+        req.setExpertName(inspection.getExpertName());
+        req.setExpertPhoneNumber(inspection.getExpertPhoneNumber());
         req.setExpertDescription(inspection.getExpertDescription());
         req.setInspectionDate(DateUtil.gregorianToShamsiString(inspection.getInspectionDate().toLocalDate()));
         req.setInspectionTime(DateUtil.getTime(inspection.getInspectionDate()));

@@ -41,6 +41,10 @@ public class CarInspection {
     @Column(nullable = false)
     private LocalDateTime inspectionDate;
 
+    private String expertName;
+
+    private String expertPhoneNumber;
+
     @Column(columnDefinition = "TEXT")
     private String expertDescription;
 

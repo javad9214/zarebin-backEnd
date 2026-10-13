@@ -38,6 +38,10 @@ public class CarInspectionDto {
     @NotBlank(message = "Plate number is required")
     private String plateNumber;
 
+    private String expertName;
+
+    private String expertPhoneNumber;
+
     private String expertDescription;
 
     // Body panels

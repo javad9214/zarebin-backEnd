@@ -73,6 +73,8 @@ public class CarInspectionService {
         e.setChassisNumber(dto.getChassisNumber());
         e.setPlateNumber(dto.getPlateNumber());
         e.setInspectionDate(dto.getInspectionDate());
+        e.setExpertName(dto.getExpertName());
+        e.setExpertPhoneNumber(dto.getExpertPhoneNumber());
         e.setExpertDescription(dto.getExpertDescription());
 
         e.setRoof(dto.getRoof());
@@ -115,6 +117,8 @@ public class CarInspectionService {
         e.setChassisNumber(d.getChassisNumber());
         e.setPlateNumber(d.getPlateNumber());
         e.setInspectionDate(d.getInspectionDate());
+        e.setExpertName(d.getExpertName());
+        e.setExpertPhoneNumber(d.getExpertPhoneNumber());
         e.setExpertDescription(d.getExpertDescription());
 
         e.setRoof(d.getRoof());
@@ -144,6 +148,8 @@ public class CarInspectionService {
         d.setChassisNumber(e.getChassisNumber());
         d.setPlateNumber(e.getPlateNumber());
         d.setInspectionDate(e.getInspectionDate());
+        d.setExpertName(e.getExpertName());
+        d.setExpertPhoneNumber(e.getExpertPhoneNumber());
         d.setExpertDescription(e.getExpertDescription());
 
         d.setRoof(e.getRoof());
