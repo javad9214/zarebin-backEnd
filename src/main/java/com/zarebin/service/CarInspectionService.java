@@ -51,13 +51,9 @@ public class CarInspectionService {
      */
     @Transactional
     public void backfillPublicIds() {
-        List<CarInspection> missing = repository.findByPublicIdIsNull();
-        for (CarInspection e : missing) {
-            e.setPublicId(UUID.randomUUID());
-        }
-        repository.saveAll(missing);
-        if (!missing.isEmpty()) {
-            log.info("Backfilled publicId for {} inspection(s)", missing.size());
+        int updated = repository.backfillPublicIds();
+        if (updated > 0) {
+            log.info("Backfilled publicId for {} inspection(s)", updated);
         }
     }
 
