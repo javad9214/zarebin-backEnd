@@ -57,7 +57,9 @@ public class CarInspectionPdfServiceLocally {
             writeRightAligned(cs, font, inspection.getCarName(), 900, 710);
             writeRightAligned(cs, font, inspection.getCarModel(), 5300, 690);
             writeRightAligned(cs, font, inspection.getChassisNumber(), 500, 670);
-            writeRightAligned(cs, font, inspection.getPlateNumber(), 500, 650);
+            writeRightAligned(cs, font,
+                    inspection.getPlateNumber() != null ? inspection.getPlateNumber().toString() : "",
+                    500, 650);
 
             if (inspection.getInspectionDate() != null) {
                 String formattedDate = inspection.getInspectionDate().format(DATE_FORMATTER);

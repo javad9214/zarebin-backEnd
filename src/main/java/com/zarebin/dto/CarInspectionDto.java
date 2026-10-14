@@ -1,6 +1,7 @@
 package com.zarebin.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -42,8 +43,9 @@ public class CarInspectionDto {
     @NotBlank(message = "Chassis number is required")
     private String chassisNumber;
 
-    @NotBlank(message = "Plate number is required")
-    private String plateNumber;
+    @NotNull(message = "Plate number is required")
+    @Valid
+    private PlateNumberDto plateNumber;
 
     private String expertName;
 

@@ -47,8 +47,8 @@ public class CarInspection {
     @Column(nullable = false)
     private String chassisNumber;
 
-    @Column(nullable = false)
-    private String plateNumber;
+    @Embedded
+    private PlateNumber plateNumber;
 
     @Column(nullable = false)
     private LocalDateTime inspectionDate;

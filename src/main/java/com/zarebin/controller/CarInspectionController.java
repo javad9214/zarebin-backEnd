@@ -85,7 +85,8 @@ public class CarInspectionController {
         req.setPhoneNumber(inspection.getPhoneNumber());
         req.setCarName(inspection.getCarName());
         req.setCarModel(inspection.getCarModel());
-        req.setPlateNumber(inspection.getPlateNumber());
+        req.setPlateNumber(inspection.getPlateNumber() != null
+                ? inspection.getPlateNumber().toString() : null);
         req.setChassisNumber(inspection.getChassisNumber());
         req.setExpertName(inspection.getExpertName());
         req.setExpertPhoneNumber(inspection.getExpertPhoneNumber());

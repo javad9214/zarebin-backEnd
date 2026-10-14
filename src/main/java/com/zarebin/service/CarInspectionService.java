@@ -1,7 +1,9 @@
 package com.zarebin.service;
 
 import com.zarebin.dto.CarInspectionDto;
+import com.zarebin.dto.PlateNumberDto;
 import com.zarebin.entity.CarInspection;
+import com.zarebin.entity.PlateNumber;
 import com.zarebin.exception.ResourceNotFoundException;
 import com.zarebin.repository.CarInspectionRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -67,7 +69,7 @@ public class CarInspectionService {
         e.setCarName(dto.getCarName());
         e.setCarModel(dto.getCarModel());
         e.setChassisNumber(dto.getChassisNumber());
-        e.setPlateNumber(dto.getPlateNumber());
+        e.setPlateNumber(toEntity(dto.getPlateNumber()));
         e.setInspectionDate(dto.getInspectionDate());
         e.setExpertName(dto.getExpertName());
         e.setExpertPhoneNumber(dto.getExpertPhoneNumber());
@@ -102,6 +104,16 @@ public class CarInspectionService {
     }
 
 
+    private PlateNumber toEntity(PlateNumberDto d) {
+        if (d == null) return null;
+        return new PlateNumber(d.getFirstTwo(), d.getLetter(), d.getThreeDigits(), d.getIranCode());
+    }
+
+    private PlateNumberDto toDto(PlateNumber e) {
+        if (e == null) return null;
+        return new PlateNumberDto(e.getFirstTwo(), e.getLetter(), e.getThreeDigits(), e.getIranCode());
+    }
+
     private CarInspection toEntity(CarInspectionDto d) {
         CarInspection e = new CarInspection();
 
@@ -111,7 +123,7 @@ public class CarInspectionService {
         e.setCarName(d.getCarName());
         e.setCarModel(d.getCarModel());
         e.setChassisNumber(d.getChassisNumber());
-        e.setPlateNumber(d.getPlateNumber());
+        e.setPlateNumber(toEntity(d.getPlateNumber()));
         e.setInspectionDate(d.getInspectionDate());
         e.setExpertName(d.getExpertName());
         e.setExpertPhoneNumber(d.getExpertPhoneNumber());
@@ -143,7 +155,7 @@ public class CarInspectionService {
         d.setCarName(e.getCarName());
         d.setCarModel(e.getCarModel());
         d.setChassisNumber(e.getChassisNumber());
-        d.setPlateNumber(e.getPlateNumber());
+        d.setPlateNumber(toDto(e.getPlateNumber()));
         d.setInspectionDate(e.getInspectionDate());
         d.setExpertName(e.getExpertName());
         d.setExpertPhoneNumber(e.getExpertPhoneNumber());
