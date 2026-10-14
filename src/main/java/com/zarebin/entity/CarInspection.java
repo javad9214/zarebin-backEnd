@@ -44,7 +44,7 @@ public class CarInspection {
     @Column(nullable = false)
     private String carModel;
 
-    @Column(nullable = false)
+    /** Optional since Oct 2026; null when the expert leaves it blank. */
     private String chassisNumber;
 
     @Embedded

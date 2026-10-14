@@ -27,6 +27,12 @@ ALTER TABLE car_inspections ADD COLUMN IF NOT EXISTS plate_letter    VARCHAR(1);
 ALTER TABLE car_inspections ADD COLUMN IF NOT EXISTS plate_three     VARCHAR(3);
 ALTER TABLE car_inspections ADD COLUMN IF NOT EXISTS plate_iran_code VARCHAR(2);
 
+-- The old plate_number column stays for historical rows, but the entity no
+-- longer maps it, so new INSERTs supply no value. Its NOT NULL (from the
+-- days of the flat required String plateNumber) must go, otherwise every
+-- insert from the new jar fails with SQLState 23502 on plate_number.
+ALTER TABLE car_inspections ALTER COLUMN plate_number DROP NOT NULL;
+
 UPDATE car_inspections c SET
   plate_first_two = left(COALESCE(p.d[1], ''), 2),
   plate_three     = left(COALESCE(p.d[2], ''), 3),

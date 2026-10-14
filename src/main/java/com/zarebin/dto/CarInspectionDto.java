@@ -40,7 +40,10 @@ public class CarInspectionDto {
     @NotBlank(message = "Car model is required")
     private String carModel;
 
-    @NotBlank(message = "Chassis number is required")
+    /**
+     * Optional: stored as null when the expert leaves it blank (the app
+     * sends null for an empty field).
+     */
     private String chassisNumber;
 
     @NotNull(message = "Plate number is required")
