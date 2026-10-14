@@ -1,10 +1,12 @@
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/entity/CarInspection.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/service/CarInspectionPdfServiceLocally.java
+/home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/entity/PlateNumber.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/service/CarInspectionPdfService.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/exception/GlobalExceptionHandler.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/repository/CarInspectionRepository.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/dto/PdfResponse.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/dto/PdfRequest.java
+/home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/dto/PlateNumberDto.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/config/PdfServiceProperties.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/dto/CarInspectionDto.java
 /home/mjavad/IdeaProjects/zarebin/zarebin-backend/src/main/java/com/zarebin/exception/ResourceNotFoundException.java
