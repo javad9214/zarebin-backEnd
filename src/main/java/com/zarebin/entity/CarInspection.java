@@ -74,7 +74,13 @@ public class CarInspection {
     private Boolean frontLeftFender;
     private Boolean roof;
     private Boolean rearBumper;
-    private Boolean chassis;
+
+    private Boolean frontChassis;
+    private Boolean rearChassis;
+    private Boolean frontRightPillar;
+    private Boolean frontLeftPillar;
+    private Boolean rearRightPillar;
+    private Boolean rearLeftPillar;
 
     @CreationTimestamp
     @Column(updatable = false)

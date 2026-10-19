@@ -77,7 +77,12 @@ public class CarInspectionService {
 
         e.setRoof(dto.getRoof());
         e.setHood(dto.getHood());
-        e.setChassis(dto.getChassis());
+        e.setFrontChassis(dto.getFrontChassis());
+        e.setRearChassis(dto.getRearChassis());
+        e.setFrontRightPillar(dto.getFrontRightPillar());
+        e.setFrontLeftPillar(dto.getFrontLeftPillar());
+        e.setRearRightPillar(dto.getRearRightPillar());
+        e.setRearLeftPillar(dto.getRearLeftPillar());
         e.setFrontLeftFender(dto.getFrontLeftFender());
         e.setFrontRightFender(dto.getFrontRightFender());
         e.setRearLeftFender(dto.getRearLeftFender());
@@ -131,7 +136,12 @@ public class CarInspectionService {
 
         e.setRoof(d.getRoof());
         e.setHood(d.getHood());
-        e.setChassis(d.getChassis());
+        e.setFrontChassis(d.getFrontChassis());
+        e.setRearChassis(d.getRearChassis());
+        e.setFrontRightPillar(d.getFrontRightPillar());
+        e.setFrontLeftPillar(d.getFrontLeftPillar());
+        e.setRearRightPillar(d.getRearRightPillar());
+        e.setRearLeftPillar(d.getRearLeftPillar());
         e.setFrontLeftFender(d.getFrontLeftFender());
         e.setFrontRightFender(d.getFrontRightFender());
         e.setRearLeftFender(d.getRearLeftFender());
@@ -163,7 +173,12 @@ public class CarInspectionService {
 
         d.setRoof(e.getRoof());
         d.setHood(e.getHood());
-        d.setChassis(e.getChassis());
+        d.setFrontChassis(e.getFrontChassis());
+        d.setRearChassis(e.getRearChassis());
+        d.setFrontRightPillar(e.getFrontRightPillar());
+        d.setFrontLeftPillar(e.getFrontLeftPillar());
+        d.setRearRightPillar(e.getRearRightPillar());
+        d.setRearLeftPillar(e.getRearLeftPillar());
         d.setFrontLeftFender(e.getFrontLeftFender());
         d.setFrontRightFender(e.getFrontRightFender());
         d.setRearLeftFender(e.getRearLeftFender());

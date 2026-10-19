@@ -94,7 +94,12 @@ public class CarInspectionController {
         req.setInspectionDate(DateUtil.gregorianToShamsiString(inspection.getInspectionDate().toLocalDate()));
         req.setInspectionTime(DateUtil.getTime(inspection.getInspectionDate()));
         req.setRoof(inspection.getRoof());
-        req.setChassis(inspection.getChassis());
+        req.setFrontChassis(inspection.getFrontChassis());
+        req.setRearChassis(inspection.getRearChassis());
+        req.setFrontRightPillar(inspection.getFrontRightPillar());
+        req.setFrontLeftPillar(inspection.getFrontLeftPillar());
+        req.setRearRightPillar(inspection.getRearRightPillar());
+        req.setRearLeftPillar(inspection.getRearLeftPillar());
         req.setFrontLeftFender(inspection.getFrontLeftFender());
         req.setFrontRightFender(inspection.getFrontRightFender());
         req.setRearLeftFender(inspection.getRearLeftFender());
