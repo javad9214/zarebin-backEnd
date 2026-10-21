@@ -28,10 +28,7 @@ public class PdfRequest {
     private Boolean roof;
     private Boolean frontChassis;
     private Boolean rearChassis;
-    private Boolean frontRightPillar;
-    private Boolean frontLeftPillar;
-    private Boolean rearRightPillar;
-    private Boolean rearLeftPillar;
+    private Boolean pillars;
     private Boolean frontLeftFender;
     private Boolean frontRightFender;
     private Boolean rearLeftFender;

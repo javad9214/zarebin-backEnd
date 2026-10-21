@@ -96,10 +96,7 @@ public class CarInspectionController {
         req.setRoof(inspection.getRoof());
         req.setFrontChassis(inspection.getFrontChassis());
         req.setRearChassis(inspection.getRearChassis());
-        req.setFrontRightPillar(inspection.getFrontRightPillar());
-        req.setFrontLeftPillar(inspection.getFrontLeftPillar());
-        req.setRearRightPillar(inspection.getRearRightPillar());
-        req.setRearLeftPillar(inspection.getRearLeftPillar());
+        req.setPillars(inspection.getPillars());
         req.setFrontLeftFender(inspection.getFrontLeftFender());
         req.setFrontRightFender(inspection.getFrontRightFender());
         req.setRearLeftFender(inspection.getRearLeftFender());

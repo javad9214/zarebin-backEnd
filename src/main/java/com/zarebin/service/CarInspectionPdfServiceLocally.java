@@ -85,12 +85,12 @@ public class CarInspectionPdfServiceLocally {
             if (Boolean.TRUE.equals(inspection.getRoof())) markCircle(cs, 300, 520);
             if (Boolean.TRUE.equals(inspection.getRearBumper())) markCircle(cs, 300, 360);
             // The template has a single شاسی checkbox: mark it when either the
-            // front or the rear chassis is damaged. The template has no ستون
-            // rows yet — pillar flags can't be drawn until it is redesigned.
+            // front or the rear chassis is damaged. The template has no ستون‌ها
+            // row yet — the pillars flag can't be drawn until it is redesigned.
             if (Boolean.TRUE.equals(inspection.getFrontChassis())
                     || Boolean.TRUE.equals(inspection.getRearChassis())) markCircle(cs, 300, 340);
-            // TODO: markCircle coordinates for frontRightPillar/frontLeftPillar/
-            // rearRightPillar/rearLeftPillar once the template gains ستون rows.
+            // TODO: markCircle coordinates for pillars once the template gains
+            // a ستون‌ها row.
 
             cs.close();
             document.save(outputStream);
